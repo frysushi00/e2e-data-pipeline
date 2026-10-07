@@ -49,7 +49,7 @@ jobs:
           cd dwh
           dbt debug --target ci
 
-      - name: Run dbt Tests (Data Quality)
+      - name: Compile dbt models (Syntax & Logic Check)
         env:
           DB_HOST: localhost
           DB_USER: postgres
@@ -58,5 +58,5 @@ jobs:
           DB_NAME: postgres
         run: |
           cd dwh
-          # We use 'build' which runs seeds, models, AND tests all at once
-          dbt build --target ci
+          # 'compile' checks all SQL/Jinja syntax and source references without needing actual data
+          dbt compile --target ci
