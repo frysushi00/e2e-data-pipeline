@@ -17,19 +17,18 @@ This project demonstrates modern data engineering practices, including container
 
 ### 1. Airflow Orchestration
 The pipeline is fully automated and monitored via Apache Airflow. All tasks (Extract, Transform, Test) execute sequentially with built-in retry logic and environment variable injection.
-![Airflow DAG Success](<img width="940" height="319" alt="image" src="https://github.com/user-attachments/assets/29b9a6a6-aef2-46b7-a146-6b811a95bde5" />)
+![Airflow DAG Success](https://github.com/user-attachments/assets/29b9a6a6-aef2-46b7-a146-6b811a95bde5)
 > *Caption: All-green Airflow DAG indicating successful end-to-end execution.*
 
 ### 2. dbt Star Schema Modeling
 Data is transformed from raw, denormalized CSVs into a clean, query-optimized Star Schema (`fct_orders`, `dim_customers`, `dim_products`, `dim_date`) to ensure fast and accurate BI reporting.
-![Power BI Star Schema](<img width="940" height="582" alt="image" src="https://github.com/user-attachments/assets/0addf9cd-e074-4799-88af-36577710992d" />)
+![Power BI Star Schema](https://github.com/user-attachments/assets/0addf9cd-e074-4799-88af-36577710992d)
 > *Caption: Power BI Model View showing proper 1-to-Many relationships between Fact and Dimension tables.*
 
 ### 3. Power BI Dashboard
 The final output is an interactive dashboard tracking core business metrics, including Total Order Volume, Order Status Breakdown, and Delivery Success Rates.
-![Power BI Dashboard](<img width="940" height="584" alt="image" src="https://github.com/user-attachments/assets/d8ea813f-e30a-4789-a719-c83dda598771" />)
+![Power BI Dashboard](https://github.com/user-attachments/assets/d8ea813f-e30a-4789-a719-c83dda598771)
 > *Caption: Interactive Power BI dashboard tracking e-commerce delivery KPIs.*
-
 ---
 
 ## 🏗️ Architecture & Tech Stack
