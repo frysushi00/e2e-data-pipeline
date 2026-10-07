@@ -9,6 +9,7 @@ on:
 jobs:
   dbt-test:
     runs-on: ubuntu-latest
+    
     services:
       postgres:
         image: postgres:15
@@ -38,17 +39,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install dbt-core dbt-postgres
 
-      - name: Debug dbt Connection
-        env:
-          DB_HOST: localhost
-          DB_USER: postgres
-          DB_PASS: postgres
-          DB_PORT: 5432
-          DB_NAME: postgres
-        run: |
-          cd dwh
-          dbt debug --target ci
-
       - name: Compile dbt models (Syntax & Logic Check)
         env:
           DB_HOST: localhost
@@ -58,5 +48,5 @@ jobs:
           DB_NAME: postgres
         run: |
           cd dwh
-          # 'compile' checks all SQL/Jinja syntax and source references without needing actual data
+          # This checks all SQL/Jinja syntax and source references without needing actual data
           dbt compile --target ci
