@@ -1,21 +1,99 @@
 # 🛒 Olist E-Commerce End-to-End Data Pipeline
 
 [![dbt CI/CD Pipeline](https://github.com/frysushi00/e2e-data-pipeline/actions/workflows/dbt-ci.yml/badge.svg)](https://github.com/frysushi00/e2e-data-pipeline/actions/workflows/dbt-ci.yml)
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791)
+![dbt](https://img.shields.io/badge/dbt-Core-FF694B)
+![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?logo=powerbi&logoColor=black)
 
 ## 📌 Project Overview
-An automated ETL/ELT pipeline that extracts raw Brazilian e-commerce data, loads it into PostgreSQL, transforms it into a Star Schema using dbt, and visualizes key delivery KPIs in Power BI.
+An automated, end-to-end ETL/ELT data pipeline that extracts raw Brazilian e-commerce data, loads it into a PostgreSQL database, transforms it into a scalable Kimball Star Schema using dbt, and visualizes key delivery and operational KPIs in Power BI. 
 
-## 🏗️ Architecture
-- **Extract & Load**: Python (Pandas, SQLAlchemy) via Apache Airflow
-- **Transformation**: dbt (Data Build Tool) with Advanced SQL (CTEs, Joins)
+This project demonstrates modern data engineering practices, including containerization, orchestration, modular SQL transformations, data quality testing, and automated CI/CD.
+
+---
+
+## 📸 Project Visuals
+
+### 1. Airflow Orchestration
+The pipeline is fully automated and monitored via Apache Airflow. All tasks (Extract, Transform, Test) execute sequentially with built-in retry logic and environment variable injection.
+![Airflow DAG Success](<img width="940" height="319" alt="image" src="https://github.com/user-attachments/assets/29b9a6a6-aef2-46b7-a146-6b811a95bde5" />)
+> *Caption: All-green Airflow DAG indicating successful end-to-end execution.*
+
+### 2. dbt Star Schema Modeling
+Data is transformed from raw, denormalized CSVs into a clean, query-optimized Star Schema (`fct_orders`, `dim_customers`, `dim_products`, `dim_date`) to ensure fast and accurate BI reporting.
+![Power BI Star Schema](<img width="940" height="582" alt="image" src="https://github.com/user-attachments/assets/0addf9cd-e074-4799-88af-36577710992d" />)
+> *Caption: Power BI Model View showing proper 1-to-Many relationships between Fact and Dimension tables.*
+
+### 3. Power BI Dashboard
+The final output is an interactive dashboard tracking core business metrics, including Total Order Volume, Order Status Breakdown, and Delivery Success Rates.
+![Power BI Dashboard](<img width="940" height="584" alt="image" src="https://github.com/user-attachments/assets/d8ea813f-e30a-4789-a719-c83dda598771" />)
+> *Caption: Interactive Power BI dashboard tracking e-commerce delivery KPIs.*
+
+---
+
+## 🏗️ Architecture & Tech Stack
+- **Extract & Load**: Python (Pandas, SQLAlchemy)
+- **Transformation**: dbt (Data Build Tool) with Advanced SQL (CTEs, Joins, Window Functions)
 - **Orchestration**: Apache Airflow (Dockerized)
+- **Data Warehouse**: PostgreSQL 15
 - **Visualization**: Power BI Desktop
+- **CI/CD**: GitHub Actions (Automated `dbt parse` syntax and logic checking)
 
-## 📂 Project Structure
+---
+
+##  Project Structure
 ```text
 e2e-data-pipeline/
-├── dags/               # Airflow DAGs
-├── data/               # Raw CSV datasets
-├── dwh/                # dbt project (models, profiles, tests)
-── script/             # Python extract & load scripts
-└── docker-compose.yml  # Local infrastructure setup
+├── .github/workflows/    # GitHub Actions CI/CD pipeline
+├── dags/                 # Airflow DAG definitions
+├── data/                 # Raw CSV datasets (Olist)
+├── dwh/                  # dbt project (models, profiles, tests)
+├── images/               # Screenshots for README documentation
+├── script/               # Python extract & load scripts
+├── docker-compose.yml    # Local infrastructure setup (Gitignored for security)
+└── README.md             # Project documentation
+```
+
+---
+
+## 🚀 How to Run Locally
+
+### Prerequisites
+- Docker & Docker Compose installed
+- Power BI Desktop (for visualization)
+
+### Step-by-Step Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/frysushi00/e2e-data-pipeline.git
+   cd e2e-data-pipeline
+   ```
+
+2. **Configure Environment:** 
+   Ensure your `.env` file is configured with your local database credentials.
+
+3. **Start the Infrastructure:**
+   ```bash
+   docker-compose up -d
+   ```
+   *(Wait ~60 seconds for Airflow to initialize).*
+
+4. **Run the Pipeline:**
+   - Navigate to `http://localhost:8081`
+   - Log in with `admin` / `admin`
+   - Toggle the `olist_etl_dwh_pipeline` DAG to **ON** and click the **Play (▶)** button.
+
+5. **Connect Power BI:**
+   - Open Power BI Desktop → Get Data → PostgreSQL database
+   - Server: `localhost:5432` | Database: `olist_db`
+   - Credentials: Database | User: `admin` | Password: `admin123`
+   - Load tables from the `dwh` schema.
+
+---
+
+## 🛡️ Data Quality & CI/CD
+This project features an automated GitHub Actions workflow. On every push or pull request to `main`, the pipeline automatically runs `dbt parse` to validate all SQL, Jinja, and YAML syntax, ensuring no broken code is ever merged into the production branch.
+
+---
