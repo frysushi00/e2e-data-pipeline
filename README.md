@@ -1,5 +1,7 @@
 # 🛒 Olist E-Commerce End-to-End Data Pipeline
 
+[![dbt CI/CD Pipeline](https://github.com/frysushi00/e2e-data-pipeline/actions/workflows/dbt-ci.yml/badge.svg)](https://github.com/frysushi00/e2e-data-pipeline/actions/workflows/dbt-ci.yml)
+
 ## 📌 Project Overview
 An automated ETL/ELT pipeline that extracts raw Brazilian e-commerce data, loads it into PostgreSQL, transforms it into a Star Schema using dbt, and visualizes key delivery KPIs in Power BI.
 
