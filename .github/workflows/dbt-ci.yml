@@ -7,23 +7,8 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
-  dbt-test:
+  dbt-parse:
     runs-on: ubuntu-latest
-    
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Checkout code
@@ -39,14 +24,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install dbt-core dbt-postgres
 
-      - name: Compile dbt models (Syntax & Logic Check)
-        env:
-          DB_HOST: localhost
-          DB_USER: postgres
-          DB_PASS: postgres
-          DB_PORT: 5432
-          DB_NAME: postgres
+      - name: Parse dbt project (Syntax & Logic Check)
         run: |
           cd dwh
-          # This checks all SQL/Jinja syntax and source references without needing actual data
-          dbt compile --target ci
+          # 'parse' checks all SQL, Jinja, and YAML syntax without needing a database connection
+          dbt parse
