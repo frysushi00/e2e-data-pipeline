@@ -15,7 +15,7 @@ dwh:
       host: "{{ env_var('DB_HOST', 'localhost') }}"
       user: "{{ env_var('DB_USER', 'postgres') }}"
       password: "{{ env_var('DB_PASS', 'postgres') }}"
-      port: "{{ env_var('DB_PORT', '5432') }}"
+      port: "{{ env_var('DB_PORT', 5432) | int }}"
       dbname: "{{ env_var('DB_NAME', 'postgres') }}"
       schema: dwh
       threads: 4
