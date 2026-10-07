@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    database: olist_db
+    schema: raw
+    tables:
+      - name: orders
+      - name: customers
+      - name: products
+      - name: order_items
+      - name: product_category_name_translation
