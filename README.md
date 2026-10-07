@@ -8,7 +8,6 @@
 
 ## 📌 Project Overview
 An automated, end-to-end ETL/ELT data pipeline that extracts raw Brazilian e-commerce data, loads it into a PostgreSQL database, transforms it into a scalable Kimball Star Schema using dbt, and visualizes key delivery and operational KPIs in Power BI. 
-
 This project demonstrates modern data engineering practices, including containerization, orchestration, modular SQL transformations, data quality testing, and automated CI/CD.
 
 ---
@@ -57,39 +56,9 @@ e2e-data-pipeline/
 ---
 
 ## 🚀 How to Run Locally
-
 ### Prerequisites
 - Docker & Docker Compose installed
 - Power BI Desktop (for visualization)
-
-### Step-by-Step Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/frysushi00/e2e-data-pipeline.git
-   cd e2e-data-pipeline
-   ```
-
-2. **Configure Environment:** 
-   Ensure your `.env` file is configured with your local database credentials.
-
-3. **Start the Infrastructure:**
-   ```bash
-   docker-compose up -d
-   ```
-   *(Wait ~60 seconds for Airflow to initialize).*
-
-4. **Run the Pipeline:**
-   - Navigate to `http://localhost:8081`
-   - Log in with `admin` / `admin`
-   - Toggle the `olist_etl_dwh_pipeline` DAG to **ON** and click the **Play (▶)** button.
-
-5. **Connect Power BI:**
-   - Open Power BI Desktop → Get Data → PostgreSQL database
-   - Server: `localhost:5432` | Database: `olist_db`
-   - Credentials: Database | User: `admin` | Password: `admin123`
-   - Load tables from the `dwh` schema.
-
 ---
 
 ## 🛡️ Data Quality & CI/CD
